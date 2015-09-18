@@ -1,16 +1,16 @@
 var bio = {
     "name": "Tyler Neisinger",
     "role": "Web Developer",
-    "welcomeMessage": "Hi, everybody",
+    "welcomeMessage": "Hi, everybody!!!",
     "contacts": {
         "mobile": "208-741-0279",
         "email": "tjneisi@gmail.com",
         "github": "tneisinger",
-        "twitter": "not yet",
-        "location": "Los Angeles"
+        "twitter": "@tylerneisinger",
+        "location": "Los Angeles, CA"
     },
     "picture": "images/fry.jpg",
-    "skills": ["web programming", "production sound recording"]
+    "skills": ["Web Development", "Production Sound Recording"]
 }
 
 var work = {
@@ -18,9 +18,9 @@ var work = {
         {
             "employer": "self-employed",
             "title": "location sound mixer",
-            "location": "Los Angeles",
+            "location": "Los Angeles, CA",
             "dates": "2010-2015",
-            "description": "Worked as a location sound mixer for film and video productions in Los Angeles"
+            "description": "Worked as a location sound mixer for film and video productions in the Los Angeles area"
         }
     ]
 }
@@ -99,10 +99,23 @@ var education = {
     ]
 }
 
+var header = $('#header');
+header.append(HTMLheaderName.replace("%data%", bio.name));
+header.append(HTMLheaderRole.replace("%data%", bio.role));
+header.append(HTMLbioPic.replace("%data%", bio.picture));
+header.append(HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage));
+
+var topContacts = $("#topContacts");
+topContacts.append(HTMLmobile.replace("%data%", bio.contacts.mobile));
+topContacts.append(HTMLemail.replace("%data%", bio.contacts.email));
+//topContacts.append(HTMLtwitter.replace("%data%", bio.contacts.twitter));
+topContacts.append(HTMLgithub.replace("%data%", bio.contacts.github));
+topContacts.append(HTMLlocation.replace("%data%", bio.contacts.location));
+
 if (bio.skills.length > 0) {
     $("#header").append(HTMLskillsStart);
-    for (skill in bio.skills) {
-        $("#skills").append(HTMLskills.replace("%data%", bio.skills[skill]));
+    for (i in bio.skills) {
+        $("#skills").append(HTMLskills.replace("%data%", bio.skills[i]));
     }
 }
 
