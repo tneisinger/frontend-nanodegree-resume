@@ -127,11 +127,12 @@ var displayWork = function() {
         var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer)
         var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
         var formattedEmployerTitle = formattedEmployer + formattedTitle;
-        $(".work-entry:last").append(formattedEmployerTitle)
+        var lastWorkEntry = $(".work-entry:last");
+        lastWorkEntry.append(formattedEmployerTitle)
         var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
-        $(".work-entry:last").append(formattedDates);
+        lastWorkEntry.append(formattedDates);
         var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
-        $(".work-entry:last").append(formattedDescription);
+        lastWorkEntry.append(formattedDescription);
     }
 }
 
