@@ -5,7 +5,7 @@ var bio = {
     "contacts": {
         "mobile": "208-741-0279",
         "email": "tjneisi@gmail.com",
-        "github": "tneisinger",
+        "github": "https://github.com/tneisinger",
         "twitter": "@tylerneisinger",
         "location": "Los Angeles, CA"
     },
@@ -102,26 +102,31 @@ var education = {
     ]
 }
 
-var header = $('#header');
-header.append(HTMLheaderName.replace("%data%", bio.name));
-header.append(HTMLheaderRole.replace("%data%", bio.role));
-header.append(HTMLbioPic.replace("%data%", bio.picture));
-header.append(HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage));
 
-var topContacts = $("#topContacts");
-topContacts.append(HTMLmobile.replace("%data%", bio.contacts.mobile));
-topContacts.append(HTMLemail.replace("%data%", bio.contacts.email));
-topContacts.append(HTMLgithub.replace("%data%", bio.contacts.github));
-topContacts.append(HTMLlocation.replace("%data%", bio.contacts.location));
+// Display Functions //
 
-if (bio.skills.length > 0) {
-    $("#header").append(HTMLskillsStart);
-    for (i in bio.skills) {
-        $("#skills").append(HTMLskills.replace("%data%", bio.skills[i]));
+bio.display = function() {
+    var header = $('#header');
+    header.append(HTMLheaderName.replace("%data%", bio.name));
+    header.append(HTMLheaderRole.replace("%data%", bio.role));
+    header.append(HTMLbioPic.replace("%data%", bio.picture));
+    header.append(HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage));
+
+    var topContacts = $("#topContacts");
+    topContacts.append(HTMLmobile.replace("%data%", bio.contacts.mobile));
+    topContacts.append(HTMLemail.replace("%data%", bio.contacts.email));
+    topContacts.append(HTMLgithub.replace("%data%", bio.contacts.github));
+    topContacts.append(HTMLlocation.replace("%data%", bio.contacts.location));
+
+    if (bio.skills.length > 0) {
+        $("#header").append(HTMLskillsStart);
+        for (i in bio.skills) {
+            $("#skills").append(HTMLskills.replace("%data%", bio.skills[i]));
+        }
     }
 }
 
-var displayWork = function() {
+work.display = function() {
     for (job in work.jobs) {
         $("#workExperience").append(HTMLworkStart);
         var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer)
@@ -136,35 +141,6 @@ var displayWork = function() {
     }
 }
 
-displayWork();
-
-$(document).click(function(loc) {
-    var x = loc.pageX;
-    var y = loc.pageY;
-    logClicks(x,y);
-});
-
-function locationizer(work_obj) {
-    var locations = [];
-
-    for (i in work_obj.jobs) {
-        var location = work_obj.jobs[i].location;
-        locations.push(location);
-    }
-    return locations;
-}
-
-$("#main").append(internationalizeButton);
-
-function inName(name) {
-    var names = name.trim().split(" ");
-    names[0] = names[0][0].toUpperCase() + names[0].substring(1);
-    names[1] = names[1].toUpperCase();
-    return names.join(" ");
-}
-
-console.log(inName("tyler neisinger"));
-
 projects.display = function() {
     for (i in projects.projects) {
         $("#projects").append(HTMLprojectStart);
@@ -176,7 +152,17 @@ projects.display = function() {
     }
 }
 
-projects.display(projects);
+bio.display();
+work.display();
+projects.display();
 
 // add a map
 $("#mapDiv").append(googleMap);
+
+// log click data
+$(document).click(function(loc) {
+    var x = loc.pageX;
+    var y = loc.pageY;
+    logClicks(x,y);
+});
+
