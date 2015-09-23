@@ -10,7 +10,10 @@ var bio = {
         "location": "Los Angeles, CA"
     },
     "picture": "images/fry.jpg",
-    "skills": ["Web Development", "Production Sound Recording"]
+    "skills": [
+        "Web Development",
+        "Production Audio Recording"
+    ]
 }
 
 var work = {
