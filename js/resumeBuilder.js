@@ -111,7 +111,6 @@ header.append(HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage));
 var topContacts = $("#topContacts");
 topContacts.append(HTMLmobile.replace("%data%", bio.contacts.mobile));
 topContacts.append(HTMLemail.replace("%data%", bio.contacts.email));
-//topContacts.append(HTMLtwitter.replace("%data%", bio.contacts.twitter));
 topContacts.append(HTMLgithub.replace("%data%", bio.contacts.github));
 topContacts.append(HTMLlocation.replace("%data%", bio.contacts.location));
 
@@ -131,8 +130,6 @@ var displayWork = function() {
         $(".work-entry:last").append(formattedEmployerTitle)
         var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
         $(".work-entry:last").append(formattedDates);
-        //var formattedWorkLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location)
-        //$(".work-entry:last").append(formattedWorkLocation);
         var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
         $(".work-entry:last").append(formattedDescription);
     }
@@ -170,10 +167,11 @@ console.log(inName("tyler neisinger"));
 projects.display = function() {
     for (i in projects.projects) {
         $("#projects").append(HTMLprojectStart);
-        $(".project-entry:last").append(HTMLprojectTitle.replace("%data%", projects.projects[i].title));
-        $(".project-entry:last").append(HTMLprojectDates.replace("%data%", projects.projects[i].dates));
-        $(".project-entry:last").append(HTMLprojectDescription.replace("%data%", projects.projects[i].description));
-        $(".project-entry:last").append(HTMLprojectImage.replace("%data%", projects.projects[i].image));
+        var lastProjectEntry = $(".project-entry:last");
+        lastProjectEntry.append(HTMLprojectTitle.replace("%data%", projects.projects[i].title));
+        lastProjectEntry.append(HTMLprojectDates.replace("%data%", projects.projects[i].dates));
+        lastProjectEntry.append(HTMLprojectDescription.replace("%data%", projects.projects[i].description));
+        lastProjectEntry.append(HTMLprojectImage.replace("%data%", projects.projects[i].image));
     }
 }
 
