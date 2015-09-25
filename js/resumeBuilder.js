@@ -1,19 +1,19 @@
 var bio = {
     "name": "Tyler Neisinger",
     "role": "Web Developer",
-    "welcomeMessage": "Hi, everybody!!!",
     "contacts": {
         "mobile": "208-741-0279",
         "email": "tjneisi@gmail.com",
-        "github": "https://github.com/tneisinger",
+        "github": "tneisinger",
         "twitter": "@tylerneisinger",
         "location": "Los Angeles, CA"
     },
-    "picture": "images/fry.jpg",
+    "welcomeMessage": "Hi, everybody!!!",
     "skills": [
         "Web Development",
-        "Production Audio Recording"
-    ]
+        "Video Production Audio Recording"
+    ],
+    "biopic": "images/fry.jpg",
 }
 
 var work = {
@@ -22,8 +22,8 @@ var work = {
             "employer": "self-employed",
             "title": "location sound mixer",
             "location": "Los Angeles, CA",
-            "dates": "2010-2015",
-            "description": "Worked as a location sound mixer for film and video productions in the Los Angeles area"
+            "dates": "2010 - Present",
+            "description": "I currently work as a location sound mixer for film and video productions in the Los Angeles area."
         }
     ]
 }
@@ -32,9 +32,11 @@ var projects = {
     "projects": [
         {
             "title": "Some project",
-            "dates": "2015",
-            "description": "Some project",
-            "image": "images/197x148.gif"
+            "dates": "2015 - Present",
+            "description": "This is a description for my project.",
+            "images": [
+                "images/197x148.gif"
+                ]
         }
     ]
 }
@@ -54,49 +56,49 @@ var education = {
         {
             "title": "Introduction to Linux",
             "school": "edX",
-            "dates": "5/10/15",
+            "date": 2015,
             "url": "https://www.edx.org/course/introduction-linux-linuxfoundationx-lfs101x-2"
         },
         {
             "title": "Intro to Computer Science",
             "school": "Udacity",
-            "dates": "12/11/12",
+            "date": 2012,
             "url": "https://www.udacity.com/course/intro-to-computer-science--cs101"
         },
         {
             "title": "Intro to Statistics",
             "school": "Udacity",
-            "dates": "1/20/13",
+            "date": 2013,
             "url": "https://www.udacity.com/course/intro-to-statistics--st101"
         },
         {
             "title": "Intro to Algorithms",
             "school": "Udacity",
-            "dates": "2/16/13",
+            "date": 2013,
             "url": "https://www.udacity.com/course/intro-to-algorithms--cs215"
         },
         {
             "title": "Web Development",
             "school": "Udacity",
-            "dates": "2/18/13",
+            "date": 2013,
             "url": "https://www.udacity.com/course/web-development--cs253"
         },
         {
             "title": "Intro to Artificial Intelligence",
             "school": "Udacity",
-            "dates": "4/15/14",
+            "date": 2014,
             "url": "https://www.udacity.com/course/intro-to-artificial-intelligence--cs271"
         },
         {
             "title": "Statistics",
             "school": "Udacity",
-            "dates": "1/28/14",
+            "date": 2014,
             "url": "https://www.udacity.com/course/statistics--st095"
         },
         {
             "title": "Design of Computer Programs",
             "school": "Udacity",
-            "dates": "4/22/14",
+            "date": 2014,
             "url": "https://www.udacity.com/course/design-of-computer-programs--cs212" 
         }
     ]
@@ -109,7 +111,7 @@ bio.display = function() {
     var header = $('#header');
     header.append(HTMLheaderName.replace("%data%", bio.name));
     header.append(HTMLheaderRole.replace("%data%", bio.role));
-    header.append(HTMLbioPic.replace("%data%", bio.picture));
+    header.append(HTMLbioPic.replace("%data%", bio.biopic));
     header.append(HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage));
 
     var topContacts = $("#topContacts");
@@ -117,6 +119,12 @@ bio.display = function() {
     topContacts.append(HTMLemail.replace("%data%", bio.contacts.email));
     topContacts.append(HTMLgithub.replace("%data%", bio.contacts.github));
     topContacts.append(HTMLlocation.replace("%data%", bio.contacts.location));
+
+    var footerContacts = $("#footerContacts");
+    footerContacts.append(HTMLmobile.replace("%data%", bio.contacts.mobile));
+    footerContacts.append(HTMLemail.replace("%data%", bio.contacts.email));
+    footerContacts.append(HTMLgithub.replace("%data%", bio.contacts.github));
+    footerContacts.append(HTMLlocation.replace("%data%", bio.contacts.location));
 
     if (bio.skills.length > 0) {
         $("#header").append(HTMLskillsStart);
@@ -144,17 +152,54 @@ work.display = function() {
 projects.display = function() {
     for (i in projects.projects) {
         $("#projects").append(HTMLprojectStart);
+        var project = projects.projects[i];
         var lastProjectEntry = $(".project-entry:last");
-        lastProjectEntry.append(HTMLprojectTitle.replace("%data%", projects.projects[i].title));
-        lastProjectEntry.append(HTMLprojectDates.replace("%data%", projects.projects[i].dates));
-        lastProjectEntry.append(HTMLprojectDescription.replace("%data%", projects.projects[i].description));
-        lastProjectEntry.append(HTMLprojectImage.replace("%data%", projects.projects[i].image));
+        lastProjectEntry.append(HTMLprojectTitle.replace("%data%", project.title));
+        lastProjectEntry.append(HTMLprojectDates.replace("%data%", project.dates));
+        lastProjectEntry.append(HTMLprojectDescription.replace("%data%", project.description));
+        for (j in project.images) {
+            lastProjectEntry.append(HTMLprojectImage.replace("%data%", project.images[j]));
+        }
     }
 }
+
+education.display = function() {
+    for (i in education.schools) {
+        $("#education").append(HTMLschoolStart);
+        var lastSchoolEntry = $(".education-entry:last");
+        var schoolName = HTMLschoolName.replace("%data%", education.schools[i].name);
+        var schoolDegree = HTMLschoolDegree.replace("%data%", education.schools[i].degree);
+        lastSchoolEntry.append(schoolName + schoolDegree);
+        lastSchoolEntry.append(HTMLschoolLocation.replace("%data%", education.schools[i].location));
+        lastSchoolEntry.append(HTMLschoolDates.replace("%data%", education.schools[i].dates));
+        appendMajors(education.schools[i].majors, lastSchoolEntry);
+    }
+
+    $("#education").append(HTMLonlineClasses);
+
+    for (i in education.onlineCourses) {
+        var course = education.onlineCourses[i];
+        $("#education").append(HTMLschoolStart);
+        var lastSchoolEntry = $(".education-entry:last");
+        var formattedTitle = HTMLonlineTitle.replace("%data%", course.title);
+        var formattedSchool = HTMLonlineSchool.replace("%data%", course.school);
+        lastSchoolEntry.append(formattedTitle + formattedSchool);
+        lastSchoolEntry.append(HTMLonlineDates.replace("%data%", course.date));
+        lastSchoolEntry.append(HTMLonlineURL.replace("%data%", course.url));
+    }
+}
+
+function appendMajors(majors, schoolEntry) {
+    for (i in majors) {
+        schoolEntry.append(HTMLschoolMajor.replace("%data%", majors[i]));
+    }
+}
+
 
 bio.display();
 work.display();
 projects.display();
+education.display();
 
 // add a map
 $("#mapDiv").append(googleMap);
