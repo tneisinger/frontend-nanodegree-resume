@@ -99,7 +99,7 @@ var education = {
             "title": "Design of Computer Programs",
             "school": "Udacity",
             "date": 2014,
-            "url": "https://www.udacity.com/course/design-of-computer-programs--cs212" 
+            "url": "https://www.udacity.com/course/design-of-computer-programs--cs212"
         }
     ]
 }
@@ -109,8 +109,8 @@ var education = {
 
 bio.display = function() {
     var header = $('#header');
-    header.append(HTMLheaderName.replace("%data%", bio.name));
-    header.append(HTMLheaderRole.replace("%data%", bio.role));
+    header.prepend(HTMLheaderRole.replace("%data%", bio.role));
+    header.prepend(HTMLheaderName.replace("%data%", bio.name));
     header.append(HTMLbioPic.replace("%data%", bio.biopic));
     header.append(HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage));
 
@@ -135,16 +135,18 @@ bio.display = function() {
 }
 
 work.display = function() {
-    for (job in work.jobs) {
+    for (i in work.jobs) {
         $("#workExperience").append(HTMLworkStart);
-        var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer)
-        var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
+        var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[i].employer)
+        var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[i].title);
         var formattedEmployerTitle = formattedEmployer + formattedTitle;
         var lastWorkEntry = $(".work-entry:last");
         lastWorkEntry.append(formattedEmployerTitle)
-        var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
+        var formattedDates = HTMLworkDates.replace("%data%", work.jobs[i].dates);
         lastWorkEntry.append(formattedDates);
-        var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
+        var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[i].location);
+        lastWorkEntry.append(formattedLocation);
+        var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[i].description);
         lastWorkEntry.append(formattedDescription);
     }
 }
@@ -172,7 +174,9 @@ education.display = function() {
         lastSchoolEntry.append(schoolName + schoolDegree);
         lastSchoolEntry.append(HTMLschoolLocation.replace("%data%", education.schools[i].location));
         lastSchoolEntry.append(HTMLschoolDates.replace("%data%", education.schools[i].dates));
-        appendMajors(education.schools[i].majors, lastSchoolEntry);
+        for (j in education.schools[i].majors) {
+            lastSchoolEntry.append(HTMLschoolMajor.replace("%data%", education.schools[i].majors[j]));
+        }
     }
 
     $("#education").append(HTMLonlineClasses);
@@ -189,13 +193,7 @@ education.display = function() {
     }
 }
 
-function appendMajors(majors, schoolEntry) {
-    for (i in majors) {
-        schoolEntry.append(HTMLschoolMajor.replace("%data%", majors[i]));
-    }
-}
-
-
+// run display functions
 bio.display();
 work.display();
 projects.display();
